@@ -13,4 +13,5 @@ export default class QuizController {
     const leaderboard = this.quizManager.getLeaderboard(limit);
     res.json({ success: true, data: leaderboard });
   }
+
 }

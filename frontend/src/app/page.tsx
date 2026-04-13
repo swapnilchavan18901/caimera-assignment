@@ -112,9 +112,9 @@ export default function Home() {
             currentUserId={userId}
           />
         </div>
-        {/* <div>
+        <div>
           <Leaderboard currentUserId={userId} />
-        </div> */}
+        </div>
       </div>
     </main>
   );
