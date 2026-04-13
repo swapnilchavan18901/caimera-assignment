@@ -23,7 +23,7 @@ export default function StatusBar({
       </div>
       <div className="flex items-center gap-4">
         <span>👤 {username}</span>
-        {/* <span>🌐 {userCount} online</span> */}
+        <span>🌐 {userCount} online</span>
       </div>
     </div>
   );
