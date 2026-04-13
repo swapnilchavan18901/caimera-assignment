@@ -7,19 +7,33 @@ import QuizController from "./controllers/quizController.ts";
 import createQuizRoutes from "./routes/quizRoutes.ts";
 
 const PORT = process.env.PORT || 4000;
-const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
+const RAW_FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
+const ALLOWED_ORIGINS = RAW_FRONTEND_URL.split(",").map((url) =>
+  url.trim().replace(/\/+$/, ""),
+);
 
 const app = express();
 const server = http.createServer(app);
 
+const corsOriginCheck = (
+  origin: string | undefined,
+  callback: (err: Error | null, allow?: boolean) => void,
+) => {
+  if (!origin || ALLOWED_ORIGINS.includes(origin)) {
+    callback(null, true);
+  } else {
+    callback(new Error(`CORS: origin ${origin} not allowed`));
+  }
+};
+
 const io = new Server(server, {
   cors: {
-    origin: FRONTEND_URL,
+    origin: ALLOWED_ORIGINS,
     methods: ["GET", "POST"],
   },
 });
 
-app.use(cors({ origin: FRONTEND_URL }));
+app.use(cors({ origin: corsOriginCheck }));
 app.use(express.json());
 
 const quizManager = new QuizManager();
