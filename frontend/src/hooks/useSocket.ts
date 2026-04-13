@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { io, Socket } from "socket.io-client";
 
-const BACKEND_URL =
+const RAW_BACKEND_URL =
   process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:4000";
+const BACKEND_URL = RAW_BACKEND_URL.startsWith("http") ? RAW_BACKEND_URL : `https://${RAW_BACKEND_URL}`;
 
 interface Question {
   id: string;

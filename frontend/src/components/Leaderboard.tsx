@@ -10,7 +10,8 @@ interface LeaderboardEntry {
   averageResponseTime: number;
 }
 
-const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:4000';
+const RAW_BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:4000';
+const BACKEND_URL = RAW_BACKEND_URL.startsWith('http') ? RAW_BACKEND_URL : `https://${RAW_BACKEND_URL}`;
 
 export default function Leaderboard({ currentUserId }: { currentUserId: string }) {
   const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
