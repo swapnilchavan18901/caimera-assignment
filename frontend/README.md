@@ -1,36 +1,108 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Math Quiz Frontend (Next.js)
+
+Real-time competitive math quiz frontend built with Next.js, React, and Socket.IO.
+
+## Tech Stack
+
+- **Next.js 16** - React framework with App Router
+- **TypeScript** - Type-safe development
+- **Tailwind CSS** - Utility-first styling
+- **Socket.IO Client** - Real-time WebSocket communication
+- **UUID** - User identification
+
+## Project Structure
+
+```
+frontend/
+├── src/
+│   ├── app/
+│   │   ├── page.tsx           # Main quiz interface
+│   │   ├── layout.tsx         # Root layout with global styles
+│   │   └── globals.css        # Global styles & Tailwind
+│   ├── components/
+│   │   ├── QuestionCard.tsx   # Question display & answer input
+│   │   ├── Leaderboard.tsx    # Top players display
+│   │   └── StatusBar.tsx      # Connection & user count
+│   └── hooks/
+│       └── useSocket.ts       # Socket.IO hook & event handling
+└── package.json
+```
 
 ## Getting Started
 
-First, run the development server:
+### Install Dependencies
+
+```bash
+npm install
+```
+
+### Development
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Build for Production
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm start
+```
 
-## Learn More
+## Environment Variables
 
-To learn more about Next.js, take a look at the following resources:
+Create a `.env.local` file:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+NEXT_PUBLIC_BACKEND_URL=http://localhost:4000
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Key Features
 
-## Deploy on Vercel
+### Real-Time Communication
+- WebSocket-only transport for minimal latency
+- Automatic reconnection handling
+- Event-driven architecture
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### User Management
+- Persistent userId stored in localStorage
+- Username selection on first visit
+- No authentication required
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Socket.IO Events
+
+**Listening (Server → Client):**
+- `connect` - Connection established
+- `disconnect` - Connection lost
+- `current_question` - Initial question state on join
+- `new_question` - New question broadcast to all users
+- `question_solved` - Someone answered correctly
+- `answer_result` - Individual answer feedback
+- `user_count` - Updated online user count
+
+**Emitting (Client → Server):**
+- `join` - Join game with userId and username
+- `submit_answer` - Submit answer to current question
+
+## Components
+
+### `useSocket` Hook
+Custom React hook managing all Socket.IO logic, state, and event handlers.
+
+### `QuestionCard`
+Displays current question, handles answer submission, shows winner status and feedback.
+
+### `StatusBar`
+Shows connection status, username, and online user count.
+
+### `Leaderboard`
+Fetches and displays top players from REST API endpoint.
+
+## Styling
+
+- **Tailwind CSS** for utility-first styling
+- **Dark theme** with indigo accent colors
+- **Responsive design** for mobile and desktop
+- **Smooth animations** for state transitions
