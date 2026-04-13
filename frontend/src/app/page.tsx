@@ -1,21 +1,21 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import { useSocket } from '@/hooks/useSocket';
-import QuestionCard from '@/components/QuestionCard';
-import Leaderboard from '@/components/Leaderboard';
-import StatusBar from '@/components/StatusBar';
+import { useState, useEffect } from "react";
+import { v4 as uuidv4 } from "uuid";
+import { useSocket } from "@/hooks/useSocket";
+import QuestionCard from "@/components/QuestionCard";
+import Leaderboard from "@/components/Leaderboard";
+import StatusBar from "@/components/StatusBar";
 
 export default function Home() {
-  const [userId, setUserId] = useState('');
-  const [username, setUsername] = useState('');
+  const [userId, setUserId] = useState("");
+  const [username, setUsername] = useState("");
   const [joined, setJoined] = useState(false);
-  const [inputName, setInputName] = useState('');
+  const [inputName, setInputName] = useState("");
 
   useEffect(() => {
-    const storedId = localStorage.getItem('mathquiz_userId');
-    const storedName = localStorage.getItem('mathquiz_username');
+    const storedId = localStorage.getItem("mathquiz_userId");
+    const storedName = localStorage.getItem("mathquiz_username");
     if (storedId && storedName) {
       setUserId(storedId);
       setUsername(storedName);
@@ -26,7 +26,7 @@ export default function Home() {
   }, []);
 
   const { connected, questionState, lastResult, userCount, submitAnswer } =
-    useSocket(joined ? userId : '', joined ? username : '');
+    useSocket(joined ? userId : "", joined ? username : "");
 
   const handleJoin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,8 +34,8 @@ export default function Home() {
     if (!name) return;
     setUsername(name);
     setJoined(true);
-    localStorage.setItem('mathquiz_userId', userId);
-    localStorage.setItem('mathquiz_username', name);
+    localStorage.setItem("mathquiz_userId", userId);
+    localStorage.setItem("mathquiz_username", name);
   };
 
   if (!joined) {
@@ -112,9 +112,9 @@ export default function Home() {
             currentUserId={userId}
           />
         </div>
-        <div>
+        {/* <div>
           <Leaderboard currentUserId={userId} />
-        </div>
+        </div> */}
       </div>
 
       <footer className="mt-12 text-center text-xs text-gray-600">

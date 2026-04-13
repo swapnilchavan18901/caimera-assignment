@@ -29,8 +29,7 @@ frontend/  — Next.js (React, Tailwind CSS, Socket.IO client)
 
 ### Network Fairness
 - Answer timing is measured server-side (`Date.now()` on the server, not the client)
-- WebSocket transport ensures minimal overhead compared to HTTP polling
-- Falls back to HTTP long-polling if WebSocket isn't available
+- WebSocket-only transport ensures minimal overhead and low latency
 
 ## Getting Started
 
@@ -56,13 +55,7 @@ npm run dev    # starts on http://localhost:3000
 
 | Method | Endpoint                  | Description             |
 |--------|---------------------------|-------------------------|
-| GET    | `/api/quiz/question`      | Get current question    |
-| POST   | `/api/quiz/answer`        | Submit an answer        |
-| POST   | `/api/quiz/register`      | Register a user         |
 | GET    | `/api/quiz/leaderboard`   | Get top scores          |
-| GET    | `/api/quiz/user/:userId`  | Get user's score        |
-| GET    | `/api/quiz/history`       | Get question history    |
-| GET    | `/api/quiz/status`        | Get quiz status         |
 | GET    | `/api/health`             | Health check            |
 
 ### WebSocket Events
