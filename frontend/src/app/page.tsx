@@ -116,17 +116,6 @@ export default function Home() {
           <Leaderboard currentUserId={userId} />
         </div> */}
       </div>
-
-      <footer className="mt-12 text-center text-xs text-gray-600">
-        <p>
-          Server timestamps all answers to ensure fairness regardless of network
-          latency.
-        </p>
-        <p className="mt-1">
-          Concurrency handled via Node.js single-threaded event loop — first
-          correct answer locks the round atomically.
-        </p>
-      </footer>
     </main>
   );
 }
